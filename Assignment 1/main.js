@@ -2,12 +2,16 @@ const publicKey = '05acf549a7b2719cbfe9e1c8adb153db';
 const privateKey = 'b5714f8c7862c053d280169f1ef2eb5e78278f2d'; // Use only for testing
 const ts = new Date().getTime();
 const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
+let offset = 0;
+const limit = 10;
 
-const API_URL = `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
+const API_URL = `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
 
 async function fetchCharacters() {
+    console.time('fetchCharacters');
     try {
         const response = await fetch(API_URL);
+        console.timeEnd('fetchCharacters');
         const data = await response.json();
         console.log('API Response:', data);
 
@@ -37,8 +41,6 @@ async function fetchCharacters() {
 
 function updateUI(characters) {
     const charactersContainer = document.getElementById('characters');
-    charactersContainer.innerHTML = '';
-
     characters.forEach(character => {
         const characterDiv = document.createElement('div');
         characterDiv.className = 'character';
@@ -50,5 +52,10 @@ function updateUI(characters) {
         charactersContainer.appendChild(characterDiv);
     });
 }
+
+document.getElementById('loadMore').addEventListener('click', () => {
+    offset += limit;
+    fetchCharacters();
+});
 
 fetchCharacters();
