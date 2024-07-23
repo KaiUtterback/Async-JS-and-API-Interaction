@@ -12,6 +12,23 @@ h1 {
     padding: 20px;
 }
 
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.time-input {
+    width: 60px;
+    padding: 10px;
+    margin: 0 5px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 #timer {
     font-size: 3rem;
     margin: 20px;

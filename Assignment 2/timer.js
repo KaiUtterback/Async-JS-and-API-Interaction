@@ -1,5 +1,8 @@
 let countdown;
 let repeatNotification;
+const hoursInput = document.getElementById('hoursInput');
+const minutesInput = document.getElementById('minutesInput');
+const secondsInput = document.getElementById('secondsInput');
 const timerDisplay = document.getElementById('timer');
 const notificationDisplay = document.getElementById('notification');
 const loadingDisplay = document.getElementById('loading');
@@ -24,9 +27,10 @@ function timer(seconds) {
 }
 
 function displayTimeLeft(seconds) {
-    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
     const remainderSeconds = seconds % 60;
-    const display = `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+    const display = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
     timerDisplay.textContent = display;
 }
 
@@ -50,8 +54,13 @@ function stopRepeatNotification() {
 }
 
 startButton.addEventListener('click', () => {
-    const duration = 120; // 2 minutes countdown
-    timer(duration);
+    const hours = parseInt(hoursInput.value) || 0;
+    const minutes = parseInt(minutesInput.value) || 0;
+    const seconds = parseInt(secondsInput.value) || 0;
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    if (totalSeconds > 0) {
+        timer(totalSeconds);
+    }
 });
 
 stopButton.addEventListener('click', () => {

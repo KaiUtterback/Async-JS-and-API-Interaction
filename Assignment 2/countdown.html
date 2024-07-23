@@ -8,7 +8,14 @@
 </head>
 <body>
     <h1>Countdown Timer</h1>
-    <div id="timer">00:00</div>
+    <div class="input-container">
+        <input type="number" id="hoursInput" placeholder="HH" min="0" class="time-input">
+        <span>:</span>
+        <input type="number" id="minutesInput" placeholder="MM" min="0" class="time-input">
+        <span>:</span>
+        <input type="number" id="secondsInput" placeholder="SS" min="0" class="time-input">
+    </div>
+    <div id="timer">00:00:00</div>
     <button id="startButton">Start Timer</button>
     <button id="stopButton">Stop Timer</button>
     <div id="notification"></div>
