@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    margin: 0;
+}
+
+.timer {
+    font-size: 2rem;
+    margin: 20px 0;
+}
+
+.notification {
+    background-color: #ffcc00;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #aaa;
+    cursor: pointer;
+}
