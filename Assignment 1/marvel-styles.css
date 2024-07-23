@@ -1,58 +1,32 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-h1 {
-    background-color: #e62429;
-    color: #fff;
+#app {
+    background: white;
     padding: 20px;
-    margin: 0;
-    font-size: 2.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 #characters {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
 }
 
 .character {
-    background-color: #fff;
+    background: #f9f9f9;
+    margin: 10px;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 15px;
-    padding: 20px;
-    width: 220px;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.character:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.character img {
-    border-radius: 8px;
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.character h2 {
-    font-size: 1.5rem;
-    margin: 10px 0;
-    color: #333;
-}
-
-.character p {
-    font-size: 0.9rem;
-    color: #666;
-    margin: 0;
+    border-radius: 4px;
+    width: 150px;
+    text-align: center;
 }

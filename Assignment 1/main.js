@@ -1,45 +1,20 @@
-const publicKey = '05acf549a7b2719cbfe9e1c8adb153db';
-const privateKey = 'b5714f8c7862c053d280169f1ef2eb5e78278f2d'; // Use only for testing
-const ts = new Date().getTime();
-const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
-let offset = 0;
-const limit = 10;
-
-const API_URL = `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+const apiKey = 'YOUR_PUBLIC_KEY';
+const privateKey = 'YOUR_PRIVATE_KEY';
+const ts = Date.now();
+const hash = CryptoJS.MD5(ts + privateKey + apiKey).toString();
 
 async function fetchCharacters() {
-    console.time('fetchCharacters');
+    const url = `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${apiKey}&hash=${hash}`;
     try {
-        const response = await fetch(API_URL);
-        console.timeEnd('fetchCharacters');
+        const response = await fetch(url);
         const data = await response.json();
-        console.log('API Response:', data);
-
-        if (response.status === 409) {
-            console.error('409 Conflict Error: Possible referrer issue or rate limit exceeded.');
-            alert('Error: Conflict error (409). Check console for details.');
-            return;
-        }
-
-        if (response.status !== 200) {
-            console.error(`Error: ${response.status} - ${data.status}`);
-            alert(`Error: ${response.status} - ${data.status}`);
-            return;
-        }
-
-        if (data.data && data.data.results) {
-            updateUI(data.data.results);
-        } else {
-            console.error('Invalid API response structure:', data);
-            alert('Error: Invalid API response structure. Check console for details.');
-        }
+        return data.data.results;
     } catch (error) {
-        console.error('Error fetching characters:', error);
-        alert('Error: Unable to fetch characters. Check console for details.');
+        console.error('Error fetching data:', error);
     }
 }
 
-function updateUI(characters) {
+function displayCharacters(characters) {
     const charactersContainer = document.getElementById('characters');
     characters.forEach(character => {
         const characterDiv = document.createElement('div');
@@ -47,15 +22,13 @@ function updateUI(characters) {
         characterDiv.innerHTML = `
             <h2>${character.name}</h2>
             <img src="${character.thumbnail.path}.${character.thumbnail.extension}" alt="${character.name}">
-            <p>${character.description || 'No description available'}</p>
         `;
         charactersContainer.appendChild(characterDiv);
     });
 }
 
-document.getElementById('loadMore').addEventListener('click', () => {
-    offset += limit;
-    fetchCharacters();
+fetchCharacters().then(characters => {
+    if (characters) {
+        displayCharacters(characters);
+    }
 });
-
-fetchCharacters();
