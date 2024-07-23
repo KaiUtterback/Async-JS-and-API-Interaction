@@ -6,13 +6,17 @@ async function fetchCharacters() {
         const response = await fetch(API_URL);
         const data = await response.json();
         console.log('API Response:', data);
+        
+        // Check if there are any characters in the response
         if (data.data && data.data.results) {
             updateUI(data.data.results);
         } else {
             console.error('Invalid API response structure:', data);
+            alert('Error: Invalid API response structure. Check the console for details.');
         }
     } catch (error) {
         console.error('Error fetching characters:', error);
+        alert('Error: Unable to fetch characters. Check the console for details.');
     }
 }
 
