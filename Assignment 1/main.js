@@ -1,9 +1,5 @@
 const publicKey = '05acf549a7b2719cbfe9e1c8adb153db';
-const privateKey = 'b5714f8c7862c053d280169f1ef2eb5e78278f2d';  
-const ts = new Date().getTime();
-const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
-
-const API_URL = `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
+const API_URL = `https://gateway.marvel.com/v1/public/characters?apikey=${publicKey}`;
 
 async function fetchCharacters() {
     try {
