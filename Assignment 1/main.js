@@ -1,12 +1,20 @@
-const API_KEY = '05acf549a7b2719cbfe9e1c8adb153db';  
-const API_URL = `https://gateway.marvel.com/v1/public/characters?apikey=${API_KEY}`;
+const publicKey = '05acf549a7b2719cbfe9e1c8adb153db';
+const privateKey = 'b5714f8c7862c053d280169f1ef2eb5e78278f2d';  
+const ts = new Date().getTime();
+const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
+
+const API_URL = `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
 
 async function fetchCharacters() {
     try {
         const response = await fetch(API_URL);
         const data = await response.json();
-        console.log(data.data.results);
-        updateUI(data.data.results);
+        console.log('API Response:', data);
+        if (data.data && data.data.results) {
+            updateUI(data.data.results);
+        } else {
+            console.error('Invalid API response structure:', data);
+        }
     } catch (error) {
         console.error('Error fetching characters:', error);
     }
